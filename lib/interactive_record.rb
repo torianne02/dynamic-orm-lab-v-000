@@ -3,7 +3,7 @@ require 'active_support/inflector'
 
 class InteractiveRecord
   def self.table_name
-    self.to_s.downcase.pluralize 
+    self.to_s.downcase.pluralize
   end
 
   def self.column_names
@@ -13,7 +13,12 @@ class InteractiveRecord
     column_names = []
     table_info.each do |row|
       column_names << row["name"]
-    end 
+    end
     column_names.compact
   end
+
+  def initialize(options = {})
+    options.each do |property, value|
+      self.send("#{property}=", value)
+    end
 end
